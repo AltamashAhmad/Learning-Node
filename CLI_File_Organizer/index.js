@@ -1,6 +1,6 @@
 import { argv } from 'node:process';
 import fs from 'fs';
-
+import path from 'path';
 
 const input = argv[2];
 
@@ -16,32 +16,33 @@ fs.readdir(input, (err, files) => {
         }
         console.log("organizing your files, plese wait..."); 
         files.forEach((file) => {
-            
-            if (file.includes('.mp4')) {
+
+            const extension = path.extname(file);
+            if (extension=== '.mp4') {
                 if(!fs.existsSync(Organized + '/' + 'Videos')) {
                     fs.mkdirSync(Organized + '/' + 'Videos');
                 }
                 fs.renameSync(input + '/' + file, Organized + '/' + 'Videos' + '/' + file);
             }
-            else if (file.includes('.jpg')) {
+            else if (extension === '.jpg' || extension === '.png' || extension === '.jpeg') {
                 if(!fs.existsSync(Organized + '/' + 'Images')) {
                     fs.mkdirSync(Organized + '/' + 'Images');
                 }
                 fs.renameSync(input + '/' + file, Organized + '/' + 'Images' + '/' + file);
             }
-            else if (file.includes('.pdf')) {
+            else if (extension === '.pdf' || extension === '.doc' || extension === '.docx') {
                 if(!fs.existsSync(Organized + '/' + 'PDFs')) {
                     fs.mkdirSync(Organized + '/' + 'PDFs');
                 }
                 fs.renameSync(input + '/' + file, Organized + '/' + 'PDFs' + '/' + file);
             }
-            else if (file.includes('.txt')) {
+            else if (extension === '.txt') {
                 if(!fs.existsSync(Organized + '/' + 'Texts')) {
                     fs.mkdirSync(Organized + '/' + 'Texts');
                 }
                 fs.renameSync(input + '/' + file, Organized + '/' + 'Texts' + '/' + file);
             }
-            else if (file.includes('.zip')){
+            else if (extension === '.zip' || extension === '.rar'){
                 if(!fs.existsSync(Organized + '/' + 'Zips')) {
                     fs.mkdirSync(Organized + '/' + 'Zips');
                 }
